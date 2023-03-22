@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[54]:
 
 
 import pandas as pd
@@ -10,38 +10,38 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-# In[2]:
+# In[55]:
 
 
 df =pd.read_csv("zomato.csv")
 
 
-# In[3]:
+# In[56]:
 
 
 df.head()
 
 
-# In[4]:
+# In[57]:
 
 
 df.shape
 
 
-# In[5]:
+# In[58]:
 
 
 df.columns
 
 
-# In[6]:
+# In[59]:
 
 
 df = df.drop(['url', 'address', 'phone', 'menu_item', 'dish_liked', 'reviews_list'], axis = 1)
 df.head()
 
 
-# In[7]:
+# In[60]:
 
 
 df.info()
@@ -49,13 +49,13 @@ df.info()
 
 # # Dropping Duplicates
 
-# In[8]:
+# In[61]:
 
 
 df['name'].value_counts()
 
 
-# In[9]:
+# In[62]:
 
 
 df.drop_duplicates(inplace = True)
@@ -64,7 +64,7 @@ df.shape
 
 # # Cleaning Rate Column
 
-# In[10]:
+# In[63]:
 
 
 df['rate'].unique()
@@ -72,26 +72,26 @@ df['rate'].unique()
 
 # # Removing 'New' , '-' and '/5' from rate column
 
-# In[11]:
+# In[64]:
 
 
 df['rate'] = df['rate'].apply(lambda x: str(x).strip('/5'))
 
 
-# In[12]:
+# In[65]:
 
 
 df['rate'] = df['rate'].apply(lambda x: str(x).replace('NEW', 'nan'))
 df['rate'] = df['rate'].apply(lambda x: str(x).replace('-', 'nan'))
 
 
-# In[13]:
+# In[66]:
 
 
 df['rate'] = df['rate'].astype(float)
 
 
-# In[14]:
+# In[67]:
 
 
 df['rate'].head()
@@ -99,25 +99,25 @@ df['rate'].head()
 
 # # Filling Null Values in Rate Column with Median
 
-# In[15]:
+# In[68]:
 
 
 df.rate.isnull().sum()
 
 
-# In[17]:
+# In[69]:
 
 
 df['rate'].fillna(df['rate'].median(),inplace = True)
 
 
-# In[18]:
+# In[70]:
 
 
 df.rate.isnull().sum()
 
 
-# In[20]:
+# In[71]:
 
 
 df.info()
@@ -126,25 +126,25 @@ df.shape
 
 # # Removing Null Values
 
-# In[22]:
+# In[72]:
 
 
 df.dropna(inplace = True)
 
 
-# In[23]:
+# In[73]:
 
 
 df.head()
 
 
-# In[26]:
+# In[74]:
 
 
 df['location'].unique()
 
 
-# In[27]:
+# In[75]:
 
 
 df['listed_in(city)'].unique()
@@ -152,19 +152,19 @@ df['listed_in(city)'].unique()
 
 # location and listed in (city) both has similar data. So we can drop anyone of them
 
-# In[30]:
+# In[76]:
 
 
 df = df.drop(['listed_in(city)'], axis = 1)
 
 
-# In[31]:
+# In[77]:
 
 
 df.head()
 
 
-# In[32]:
+# In[78]:
 
 
 df['approx_cost(for two people)'].unique()
@@ -172,27 +172,21 @@ df['approx_cost(for two people)'].unique()
 
 # # Removing ',' from approx_cost(for two people) Column
 
-# In[44]:
+# In[79]:
 
 
 df['approx_cost(for two people)'] = df['approx_cost(for two people)'].apply(lambda x: str(x).replace(',', ''))
 df['approx_cost(for two people)'] = df['approx_cost(for two people)'].astype(float)
 
 
-# In[40]:
+# In[80]:
 
 
 df['approx_cost(for two people)'].unique()
 
 
-# In[45]:
+# In[81]:
 
 
 df.head()
-
-
-# In[ ]:
-
-
-
 
